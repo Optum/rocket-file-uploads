@@ -36,21 +36,32 @@
   },
   "devDependencies": {
     "@boostercloud/metadata-booster": "3.1.2",
+    "@types/chai": "4.3.8",
+    "@types/mocha": "10.0.2",
     "@types/node": "^20.17.17",
+    "@types/sinon": "10.0.19",
+    "@types/sinon-chai": "3.2.10",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
+    "chai": "4.3.10",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
+    "mocha": "10.2.0",
+    "nyc": "15.1.0",
     "prettier": "^2.3.2",
+    "sinon": "16.1.0",
+    "sinon-chai": "3.7.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "scripts": {
     "lint:check": "eslint --ext '.js,.ts' **/*.ts",
     "lint:fix": "eslint --quiet --fix --ext '.js,.ts' **/*.ts",
     "compile": "tsc -b tsconfig.json",
-    "clean": "rimraf ./dist tsconfig.tsbuildinfo"
+    "clean": "rimraf ./dist tsconfig.tsbuildinfo",
+    "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\" 2>&1"
   },
   "bugs": {
     "url": "https://github.com/boostercloud/rocket-files/issues"
