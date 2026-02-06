@@ -1,6 +1,5 @@
-import { ContextBindingData } from '@azure/functions'
 import { expect } from 'chai'
-import { validateMetadata, getMetadataFromRequest } from '../src/file-uploaded'
+import { getMetadataFromRequest, validateMetadata } from '../src/file-uploaded'
 
 // Define locally to match the type without importing from the types package
 interface RocketFilesUserConfiguration {
@@ -11,7 +10,7 @@ interface RocketFilesUserConfiguration {
 
 
 describe('validateMetadata', () => {
-  const createMetadata = (blobTrigger: string): ContextBindingData => ({
+  const createMetadata = (blobTrigger: string): Record<string, unknown> => ({
     blobTrigger,
     invocationId: 'test-invocation-id',
   })
@@ -147,17 +146,20 @@ describe('validateMetadata', () => {
 })
 
 describe('getMetadataFromRequest', () => {
-  it('extracts bindingData from Azure Functions context', () => {
-    const mockContext = {
-      bindingData: {
-        blobTrigger: 'test-container/test-path/file.txt',
-        invocationId: 'test-id',
-      },
+  it('extracts triggerMetadata from Azure Functions v4 InvocationContext', () => {
+    const mockRequest = {
+      blob: Buffer.from('test content'),
+      context: {
+        triggerMetadata: {
+          blobTrigger: 'test-container/test-path/file.txt',
+          invocationId: 'test-id',
+        }
+      }
     }
 
-    const result = getMetadataFromRequest(mockContext)
+    const result = getMetadataFromRequest(mockRequest)
 
-    expect(result).to.deep.equal(mockContext.bindingData)
+    expect(result).to.deep.equal(mockRequest.context.triggerMetadata)
   })
 })
 
