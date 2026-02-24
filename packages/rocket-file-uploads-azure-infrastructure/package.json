@@ -24,21 +24,23 @@
     "url": "git+https://github.com/boostercloud/rocket-files.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">= 3.1.2",
-    "@boostercloud/framework-types": ">= 3.1.2"
+    "@boostercloud/framework-core": ">= 4.0.0",
+    "@boostercloud/framework-types": ">= 4.0.0"
   },
   "dependencies": {
     "@boostercloud/rocket-file-uploads-types": "^2.0.3"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-azure-infrastructure": "3.1.2",
-    "@boostercloud/metadata-booster": "3.1.2",
-    "@cdktf/provider-azurerm": "13.18.0",
+    "@boostercloud/framework-core": "4.0.0",
+    "@boostercloud/framework-provider-azure-infrastructure": "4.0.0",
+    "@boostercloud/framework-types": "4.0.0",
+    "@boostercloud/metadata-booster": "4.0.0",
+    "@cdktf/provider-azurerm": "14.23.1",
     "@types/mustache": "^4.1.0",
-    "@types/node": "^20.17.17",
+    "@types/node": "^22.0.0",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
-    "cdktf": "^0.20.11",
+    "cdktf": "^0.21.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
@@ -55,6 +57,5 @@
   },
   "bugs": {
     "url": "https://github.com/boostercloud/rocket-files/issues"
-  },
-  "gitHead": "b14d1df235dfd5b22897ac4d379fd6f53a646af2"
+  }
 }

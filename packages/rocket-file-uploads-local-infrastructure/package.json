@@ -24,15 +24,17 @@
     "url": "git+https://github.com/boostercloud/rocket-files.git"
   },
   "peerDependencies": {
-    "@boostercloud/framework-core": ">= 3.1.2",
-    "@boostercloud/framework-types": ">= 3.1.2"
+    "@boostercloud/framework-core": ">= 4.0.0",
+    "@boostercloud/framework-types": ">= 4.0.0"
   },
   "dependencies": {
     "@boostercloud/rocket-file-uploads-types": "^2.0.3"
   },
   "devDependencies": {
-    "@boostercloud/framework-provider-local-infrastructure": "3.1.2",
-    "@boostercloud/metadata-booster": "3.1.2",
+    "@boostercloud/framework-core": "4.0.0",
+    "@boostercloud/framework-provider-local-infrastructure": "4.0.0",
+    "@boostercloud/framework-types": "4.0.0",
+    "@boostercloud/metadata-booster": "4.0.0",
     "@types/mustache": "^4.1.0",
     "@types/node": "^20.17.17",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
@@ -53,6 +55,5 @@
   },
   "bugs": {
     "url": "https://github.com/boostercloud/rocket-files/issues"
-  },
-  "gitHead": "e6cf6ce14f584efae0065e345cad986bf177f761"
+  }
 }

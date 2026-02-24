@@ -3,7 +3,7 @@
   "private": false,
   "scripts": {
     "build": "lerna run compile",
-    "clean-compile": "lerna run clean && lerna clean --yes && lerna bootstrap && lerna run compile"
+    "clean-compile": "lerna run clean && npm ci && lerna run compile"
   },
   "devDependencies": {
     "@boostercloud/metadata-booster": "3.1.2",
@@ -14,7 +14,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
-    "lerna": "^8.1.8",
+    "lerna": "^9.0.3",
     "typescript": "^5.6.3"
   },
   "workspaces": [
