@@ -19,5 +19,35 @@
   },
   "workspaces": [
     "packages/*"
-  ]
+  ],
+  "overrides": {
+    "cdktf": {
+      "minimatch": "5.1.7",
+      "glob": "10.5.0"
+    },
+    "@cdktf/hcl2cdk": {
+      "glob": "10.5.0"
+    },
+    "@cdktf/provider-generator": {
+      "glob": "10.5.0"
+    },
+    "@cdktf/cli-core": {
+      "minimatch": "5.1.7"
+    },
+    "@cdktf/cli": {
+      "minimatch": "5.1.7"
+    },
+    "lerna": {
+      "minimatch": "3.1.3",
+      "tar": "7.5.9"
+    },
+    "nx": {
+      "minimatch": "10.2.2"
+    },
+    "@nx/devkit": {
+      "minimatch": "10.2.2"
+    },
+    "validator": "13.15.26",
+    "tmp": "0.2.5"
+  }
 }
