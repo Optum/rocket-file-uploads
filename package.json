@@ -22,8 +22,7 @@
   ],
   "overrides": {
     "cdktf": {
-      "minimatch": "5.1.7",
-      "glob": "10.5.0"
+      "minimatch": "5.1.7"
     },
     "@cdktf/hcl2cdk": {
       "glob": "10.5.0"
@@ -34,7 +33,7 @@
     "@cdktf/cli-core": {
       "minimatch": "5.1.7"
     },
-    "@cdktf/cli": {
+    "cdktf-cli": {
       "minimatch": "5.1.7"
     },
     "lerna": {
