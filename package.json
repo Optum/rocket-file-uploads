@@ -27,7 +27,7 @@
     "@cdktf/provider-generator": {
       "glob": "10.5.0"
     },
-    "@cdkftf/cli-core": {
+    "@cdktf/cli-core": {
       "minimatch": "5.1.9",
       "glob": "10.5.0"
     },
