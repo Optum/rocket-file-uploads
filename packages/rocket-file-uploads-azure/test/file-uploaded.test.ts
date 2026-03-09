@@ -18,11 +18,11 @@ describe('validateMetadata', () => {
   describe('container name validation', () => {
     it('returns false when container name does not match, even with wildcard directory pattern', () => {
       const configuration: RocketFilesUserConfiguration = {
-        storageName: 'cms_storage',
-        containerName: 'cloud-storage',
+        storageName: 'media_storage',
+        containerName: 'media-assets',
         directories: ['**'],
       }
-      const metadata = createMetadata('offer-processing/active-offer-pool/current-offers.csv')
+      const metadata = createMetadata('data-processing/incoming-data/records.csv')
 
       const result = validateMetadata(configuration, metadata)
 
@@ -32,10 +32,10 @@ describe('validateMetadata', () => {
     it('returns false when container name is a substring but not exact match', () => {
       const configuration: RocketFilesUserConfiguration = {
         storageName: 'test_storage',
-        containerName: 'offer',
+        containerName: 'data',
         directories: ['**'],
       }
-      const metadata = createMetadata('offer-processing/active-offer-pool/file.csv')
+      const metadata = createMetadata('data-processing/incoming-data/file.csv')
 
       const result = validateMetadata(configuration, metadata)
 
@@ -44,11 +44,11 @@ describe('validateMetadata', () => {
 
     it('returns true when container name matches and directory pattern matches', () => {
       const configuration: RocketFilesUserConfiguration = {
-        storageName: 'offer_intake_storage',
-        containerName: 'offer-processing',
-        directories: ['active-offer-pool'],
+        storageName: 'ingestion_storage',
+        containerName: 'data-processing',
+        directories: ['incoming-data'],
       }
-      const metadata = createMetadata('offer-processing/active-offer-pool/current-offers.csv')
+      const metadata = createMetadata('data-processing/incoming-data/records.csv')
 
       const result = validateMetadata(configuration, metadata)
 
@@ -57,11 +57,11 @@ describe('validateMetadata', () => {
 
     it('returns true when container name matches with wildcard directory pattern', () => {
       const configuration: RocketFilesUserConfiguration = {
-        storageName: 'cms_storage',
-        containerName: 'cloud-storage',
+        storageName: 'media_storage',
+        containerName: 'media-assets',
         directories: ['**'],
       }
-      const metadata = createMetadata('cloud-storage/some-dir/file.txt')
+      const metadata = createMetadata('media-assets/some-dir/file.txt')
 
       const result = validateMetadata(configuration, metadata)
 
@@ -72,11 +72,11 @@ describe('validateMetadata', () => {
   describe('directory validation with correct container', () => {
     it('returns false when container matches but directory does not', () => {
       const configuration: RocketFilesUserConfiguration = {
-        storageName: 'offer_intake_storage',
-        containerName: 'offer-processing',
-        directories: ['active-offer-pool'],
+        storageName: 'ingestion_storage',
+        containerName: 'data-processing',
+        directories: ['incoming-data'],
       }
-      const metadata = createMetadata('offer-processing/other-directory/file.csv')
+      const metadata = createMetadata('data-processing/other-directory/file.csv')
 
       const result = validateMetadata(configuration, metadata)
 
@@ -111,36 +111,36 @@ describe('validateMetadata', () => {
   })
 
   describe('duplicate event prevention scenarios', () => {
-    const cmsConfig: RocketFilesUserConfiguration = {
-      storageName: 'cms_storage',
-      containerName: 'cloud-storage',
+    const wildcardConfig: RocketFilesUserConfiguration = {
+      storageName: 'media_storage',
+      containerName: 'media-assets',
       directories: ['**'],
     }
 
-    const offerIntakeConfig: RocketFilesUserConfiguration = {
-      storageName: 'offer_intake_storage',
-      containerName: 'offer-processing',
-      directories: ['active-offer-pool'],
+    const specificDirConfig: RocketFilesUserConfiguration = {
+      storageName: 'ingestion_storage',
+      containerName: 'data-processing',
+      directories: ['incoming-data'],
     }
 
-    it('only one configuration matches for offer-processing upload', () => {
-      const metadata = createMetadata('offer-processing/active-offer-pool/current-offers.csv')
+    it('only one configuration matches for data-processing upload', () => {
+      const metadata = createMetadata('data-processing/incoming-data/records.csv')
 
-      const cmsResult = validateMetadata(cmsConfig, metadata)
-      const offerResult = validateMetadata(offerIntakeConfig, metadata)
+      const wildcardResult = validateMetadata(wildcardConfig, metadata)
+      const specificResult = validateMetadata(specificDirConfig, metadata)
 
-      expect(cmsResult).to.be.false
-      expect(offerResult).to.be.true
+      expect(wildcardResult).to.be.false
+      expect(specificResult).to.be.true
     })
 
-    it('only one configuration matches for cloud-storage upload', () => {
-      const metadata = createMetadata('cloud-storage/documents/report.pdf')
+    it('only one configuration matches for media-assets upload', () => {
+      const metadata = createMetadata('media-assets/documents/report.pdf')
 
-      const cmsResult = validateMetadata(cmsConfig, metadata)
-      const offerResult = validateMetadata(offerIntakeConfig, metadata)
+      const wildcardResult = validateMetadata(wildcardConfig, metadata)
+      const specificResult = validateMetadata(specificDirConfig, metadata)
 
-      expect(cmsResult).to.be.true
-      expect(offerResult).to.be.false
+      expect(wildcardResult).to.be.true
+      expect(specificResult).to.be.false
     })
   })
 })
