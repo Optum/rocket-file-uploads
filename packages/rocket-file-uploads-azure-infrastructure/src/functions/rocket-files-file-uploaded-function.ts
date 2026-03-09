@@ -1,4 +1,4 @@
-const VALID_NAME_PATTERN = /^[a-z0-9-]+$/
+const VALID_NAME_PATTERN = /^[a-z0-9_-]+$/
 
 function validateName(value: string, label: string): void {
   if (!VALID_NAME_PATTERN.test(value)) {
