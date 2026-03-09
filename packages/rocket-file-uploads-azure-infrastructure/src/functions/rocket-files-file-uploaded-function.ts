@@ -1,11 +1,24 @@
 import { BoosterConfig } from '@boostercloud/framework-types'
 
+const VALID_NAME_PATTERN = /^[a-z0-9-]+$/
+
+function validateName(value: string, label: string): void {
+  if (!VALID_NAME_PATTERN.test(value)) {
+    throw new Error(
+      `Invalid ${label}: "${value}". Must match ${VALID_NAME_PATTERN}.`,
+    )
+  }
+}
+
 export class RocketFilesFileUploadedFunction {
   static generateFunctionsCode(
     config: BoosterConfig,
     containerName: string,
     storageName: string,
   ): string {
+    validateName(containerName, 'containerName')
+    validateName(storageName, 'storageName')
+
     const functionName = `fileupload_${storageName}`
 
     return `
