@@ -11,7 +11,7 @@ import { RocketFilesFileUploadedFunction } from './rocket-files-file-uploaded-fu
 export class Functions {
   static async mountFunctionsV4(
     configuration: RocketFilesConfiguration,
-    config: BoosterConfig,
+    _config: BoosterConfig,
     applicationSynthStack: ApplicationSynthStack,
     _utils: RocketUtils,
   ): Promise<FunctionAppV4Definitions> {
@@ -21,7 +21,6 @@ export class Functions {
     const functionsCode = configuration.userConfiguration
       .map((userConfiguration) =>
         RocketFilesFileUploadedFunction.generateFunctionsCode(
-          config,
           userConfiguration.containerName,
           userConfiguration.storageName,
         ),

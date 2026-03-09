@@ -1,5 +1,3 @@
-import { BoosterConfig } from '@boostercloud/framework-types'
-
 const VALID_NAME_PATTERN = /^[a-z0-9-]+$/
 
 function validateName(value: string, label: string): void {
@@ -12,7 +10,6 @@ function validateName(value: string, label: string): void {
 
 export class RocketFilesFileUploadedFunction {
   static generateFunctionsCode(
-    config: BoosterConfig,
     containerName: string,
     storageName: string,
   ): string {
