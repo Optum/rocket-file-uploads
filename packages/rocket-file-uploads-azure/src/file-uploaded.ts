@@ -6,6 +6,9 @@ import * as path from 'path'
 export function getMetadataFromRequest(request: unknown): Record<string, unknown> {
   // v4 format: { blob, context } where context is InvocationContext with triggerMetadata
   const { context } = request as { blob: Buffer; context: InvocationContext }
+  if (!context || context.triggerMetadata == null) {
+    throw new Error('InvocationContext.triggerMetadata is missing for the blob upload request')
+  }
   return context.triggerMetadata as Record<string, unknown>
 }
 
