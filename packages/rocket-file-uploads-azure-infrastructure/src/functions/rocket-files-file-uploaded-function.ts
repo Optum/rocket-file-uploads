@@ -26,7 +26,7 @@ app.storageBlob('${functionName}', {
   path: '${containerName}/{name}',
   connection: '${storageName}',
   handler: async (blob, context) => {
-    return await boosterRocketDispatcher.dispatch({ blob, context })
+    return await boosterRocketDispatcher({ blob, context })
   }
 })
 `
