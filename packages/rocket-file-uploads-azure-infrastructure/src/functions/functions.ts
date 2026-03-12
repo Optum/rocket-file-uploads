@@ -18,14 +18,17 @@ export class Functions {
     const functionAppName = getFunctionAppName(applicationSynthStack)
 
     // Generate v4 functions.js code for all configured storage containers
-    const functionsCode = configuration.userConfiguration
-      .map((userConfiguration) =>
-        RocketFilesFileUploadedFunction.generateFunctionsCode(
-          userConfiguration.containerName,
-          userConfiguration.storageName,
-        ),
+    const functionsCode =
+      RocketFilesFileUploadedFunction.sharedImport().concat(
+        configuration.userConfiguration
+          .map((userConfiguration) =>
+            RocketFilesFileUploadedFunction.generateFunctionsCode(
+              userConfiguration.containerName,
+              userConfiguration.storageName,
+            ),
+          )
+          .join('\n'),
       )
-      .join('\n')
 
     return [
       {

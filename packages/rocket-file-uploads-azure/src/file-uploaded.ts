@@ -3,17 +3,23 @@ import { isValidDirectory } from '@boostercloud/rocket-file-uploads-types/dist/u
 import { InvocationContext } from '@azure/functions'
 import * as path from 'path'
 
-export function getMetadataFromRequest(request: unknown): Record<string, unknown> {
-  // v4 format: { blob, context } where context is InvocationContext with triggerMetadata
-  const { context } = request as { blob: Buffer; context: InvocationContext }
-  if (!context || context.triggerMetadata == null) {
-    throw new Error('InvocationContext.triggerMetadata is missing for the blob upload request')
-  }
-  return context.triggerMetadata as Record<string, unknown>
+export interface BlobTriggerMetadata {
+  blobTrigger: string
+
+  [key: string]: unknown
 }
 
-export function validateMetadata(configuration: RocketFilesUserConfiguration, metadata: Record<string, unknown>): boolean {
-  const blobTrigger = metadata.blobTrigger as string
+export function getMetadataFromRequest(request: unknown): BlobTriggerMetadata {
+  const req = request as Record<string, unknown>
+  const context = req as InvocationContext | undefined
+  if (!context?.triggerMetadata) {
+    throw new Error('InvocationContext.triggerMetadata is missing for the blob upload request')
+  }
+  return context.triggerMetadata as BlobTriggerMetadata
+}
+
+export function validateMetadata(configuration: RocketFilesUserConfiguration, metadata: BlobTriggerMetadata): boolean {
+  const blobTrigger = metadata.blobTrigger
 
   // Verify the container name matches first
   const containerPrefix = configuration.containerName + '/'

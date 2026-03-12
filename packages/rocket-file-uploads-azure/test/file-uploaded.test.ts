@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { getMetadataFromRequest, validateMetadata } from '../src/file-uploaded'
+import { BlobTriggerMetadata, getMetadataFromRequest, validateMetadata } from '../src/file-uploaded'
 
 // Define locally to match the type without importing from the types package
 interface RocketFilesUserConfiguration {
@@ -10,7 +10,7 @@ interface RocketFilesUserConfiguration {
 
 
 describe('validateMetadata', () => {
-  const createMetadata = (blobTrigger: string): Record<string, unknown> => ({
+  const createMetadata = (blobTrigger: string): BlobTriggerMetadata => ({
     blobTrigger,
     invocationId: 'test-invocation-id',
   })

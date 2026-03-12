@@ -9,6 +9,13 @@ function validateName(value: string, label: string): void {
 }
 
 export class RocketFilesFileUploadedFunction {
+  static sharedImport(): string {
+    return `
+const { app } = require('@azure/functions')
+const { boosterRocketDispatcher } = require('./dist/index')
+`
+  }
+
   static generateFunctionsCode(
     containerName: string,
     storageName: string,
@@ -19,9 +26,6 @@ export class RocketFilesFileUploadedFunction {
     const functionName = `fileupload_${storageName}`
 
     return `
-const { app } = require('@azure/functions')
-const { boosterRocketDispatcher } = require('./dist/index')
-
 app.storageBlob('${functionName}', {
   path: '${containerName}/{name}',
   connection: '${storageName}',
