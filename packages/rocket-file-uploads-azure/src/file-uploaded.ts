@@ -11,7 +11,7 @@ export interface BlobTriggerMetadata {
 
 export function getMetadataFromRequest(request: unknown): BlobTriggerMetadata {
   const req = request as Record<string, unknown>
-  const context = req as InvocationContext | undefined
+  const context = req.context as InvocationContext | undefined
   if (!context?.triggerMetadata) {
     throw new Error('InvocationContext.triggerMetadata is missing for the blob upload request')
   }
