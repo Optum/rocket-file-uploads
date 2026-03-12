@@ -19,7 +19,7 @@ export class Functions {
 
     // Generate v4 functions.js code for all configured storage containers
     const functionsCode =
-      RocketFilesFileUploadedFunction.sharedImport().concat(
+      RocketFilesFileUploadedFunction.sharedImports().concat(
         configuration.userConfiguration
           .map((userConfiguration) =>
             RocketFilesFileUploadedFunction.generateFunctionsCode(

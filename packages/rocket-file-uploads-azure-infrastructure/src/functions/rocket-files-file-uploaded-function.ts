@@ -9,7 +9,7 @@ function validateName(value: string, label: string): void {
 }
 
 export class RocketFilesFileUploadedFunction {
-  static sharedImport(): string {
+  static sharedImports(): string {
     return `
 const { app } = require('@azure/functions')
 const { boosterRocketDispatcher } = require('./dist/index')
