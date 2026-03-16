@@ -1,34 +1,38 @@
-import { Binding, FunctionDefinition } from '@boostercloud/framework-provider-azure-infrastructure'
-import { BoosterConfig } from '@boostercloud/framework-types'
+const VALID_NAME_PATTERN = /^[a-z0-9_-]+$/
 
-export declare type BlobBinding = Binding & {
-  path: string
-  connection: string
+function validateName(value: string, label: string): void {
+  if (!VALID_NAME_PATTERN.test(value)) {
+    throw new Error(
+      `Invalid ${label}: "${value}". Must match ${VALID_NAME_PATTERN}.`,
+    )
+  }
 }
 
-export declare type BlobFunctionDefinition = FunctionDefinition<BlobBinding>
-
 export class RocketFilesFileUploadedFunction {
-  static getFunctionDefinition(
-    config: BoosterConfig,
+  static sharedImports(): string {
+    return `
+const { app } = require('@azure/functions')
+const { boosterRocketDispatcher } = require('./dist/index')
+`
+  }
+
+  static generateFunctionsCode(
     containerName: string,
-    storageName: string
-  ): BlobFunctionDefinition {
-    return {
-      name: `fileupload_${storageName}`,
-      config: {
-        bindings: [
-          {
-            type: 'blobTrigger',
-            direction: 'in',
-            name: 'blobUpload',
-            path: `${containerName}/{name}`,
-            connection: storageName,
-          },
-        ],
-        scriptFile: config.functionRelativePath,
-        entryPoint: config.rocketDispatcherHandler.split('.')[1],
-      },
-    }
+    storageName: string,
+  ): string {
+    validateName(containerName, 'containerName')
+    validateName(storageName, 'storageName')
+
+    const functionName = `fileupload_${storageName}`
+
+    return `
+app.storageBlob('${functionName}', {
+  path: '${containerName}/{name}',
+  connection: '${storageName}',
+  handler: async (blob, context) => {
+    return await boosterRocketDispatcher({ blob, context })
+  }
+})
+`
   }
 }

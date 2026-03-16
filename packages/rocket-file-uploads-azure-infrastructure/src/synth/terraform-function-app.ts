@@ -47,10 +47,10 @@ export class TerraformFunctionApp {
       provider: providerResource,
       siteConfig: {
         applicationStack: {
-          nodeVersion: '~20',
+          nodeVersion: '~22',
         },
       },
-      functionsExtensionVersion: '~4', // keep it on version 3. Version 4 needs a migration process
+      functionsExtensionVersion: '~4',
       identity: {
         type: 'SystemAssigned',
       },

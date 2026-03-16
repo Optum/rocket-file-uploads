@@ -9,4 +9,6 @@ timeout: 5000
 full-trace: true
 bail: true
 color: true
+node-option:
+  - no-experimental-strip-types
 

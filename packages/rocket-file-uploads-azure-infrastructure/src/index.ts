@@ -5,8 +5,8 @@ import { RocketFilesConfiguration } from '@boostercloud/rocket-file-uploads-type
 
 const AzureRocketFiles = (configuration: RocketFilesConfiguration): InfrastructureRocket => ({
   mountStack: Synth.mountStack.bind(Synth, configuration),
-  mountFunctions: Functions.mountFunctions.bind(Synth, configuration),
-  getFunctionAppName: Functions.getFunctionAppName.bind(Synth, configuration),
+  mountFunctionsV4: Functions.mountFunctionsV4.bind(Functions, configuration),
+  getFunctionAppName: Functions.getFunctionAppName.bind(Functions, configuration),
 })
 
 export default AzureRocketFiles
