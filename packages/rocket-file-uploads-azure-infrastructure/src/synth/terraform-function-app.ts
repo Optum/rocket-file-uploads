@@ -1,5 +1,5 @@
-import { TerraformStack } from 'cdktf'
-import { windowsFunctionApp } from '@cdktf/provider-azurerm'
+import { TerraformStack } from 'cdktn'
+import { windowsFunctionApp } from '@cdktn/provider-azurerm'
 import { BoosterConfig } from '@boostercloud/framework-types'
 import { AzurermProvider } from '@cdktf/provider-azurerm/lib/provider'
 
